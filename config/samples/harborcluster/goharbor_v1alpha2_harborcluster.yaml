@@ -16,7 +16,6 @@ spec:
     username: postgres
     passwordRef: harbor-database-password
     sslMode: disable
-  version: "1.10.0"
   expose:
     core:
       ingress:
@@ -50,8 +49,18 @@ spec:
         requests:
           cpu: 100m
           memory: 250Mi
-#  inClusterStorage:
-#    kind: minIO
+  inClusterStorage:
+    kind: MinIO
+    minIOSpec:
+      replicas: 2
+      volumesPerServer: 1
+      resources:
+        limits:
+          cpu: 500m
+          memory: 500Mi
+        requests:
+          cpu: 100m
+          memory: 250Mi
   inClusterCache:
     kind: Redis
     redisSpec:
