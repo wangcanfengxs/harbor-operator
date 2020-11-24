@@ -39,8 +39,8 @@ type Connect struct {
 
 func (p *PostgreSQLController) Apply(ctx context.Context, harborcluster *v1alpha2.HarborCluster) (*lcm.CRStatus, error) {
 
-	p.Client.WithContext(p.Ctx)
-	p.DClient.WithContext(p.Ctx)
+	p.Client.WithContext(ctx)
+	p.DClient.WithContext(ctx)
 	p.HarborCluster = harborcluster
 
 	crdClient := p.DClient.WithResource(databaseGVR).WithNamespace(p.HarborCluster.Namespace)
