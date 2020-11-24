@@ -54,6 +54,9 @@ type RedisController struct {
 func (rc *RedisController) Apply(ctx context.Context, cluster *v1alpha2.HarborCluster) (*lcm.CRStatus, error) {
 	rc.Client.WithContext(ctx)
 	rc.DClient.WithContext(ctx)
+	rc.ResourceManager = &RedisResourceManager{
+		cluster: cluster,
+	}
 
 	crdClient := rc.DClient.WithResource(redisFailoversGVR).WithNamespace(cluster.Namespace)
 
